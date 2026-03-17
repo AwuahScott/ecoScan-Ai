@@ -7,14 +7,12 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" });
 
   const key = process.env.ANTHROPIC_API_KEY;
-  if (!key) {
+  if (!key)
     return res.status(500).json({ error: "ANTHROPIC_API_KEY is not set" });
-  }
 
   const { query } = req.body || {};
-  if (!query || !query.trim()) {
+  if (!query || !query.trim())
     return res.status(400).json({ error: "Query is required" });
-  }
 
   const SYSTEM = `You are EcoScan AI, an environmental education assistant for children aged 10-12 in Ghana and West Africa.
 When given a subject, respond ONLY with a JSON object (no markdown, no backticks, no extra text) in exactly this shape:
@@ -29,7 +27,7 @@ When given a subject, respond ONLY with a JSON object (no markdown, no backticks
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-3-haiku-20240307",
+        model: "claude-sonnet-4-5",
         max_tokens: 800,
         system: SYSTEM,
         messages: [{ role: "user", content: `Scan this: ${query.trim()}` }],
@@ -40,12 +38,13 @@ When given a subject, respond ONLY with a JSON object (no markdown, no backticks
 
     if (!response.ok) {
       console.error("Anthropic error:", response.status, responseText);
-      // Return the FULL error detail to the browser so you can see exactly what's wrong
-      return res.status(200).json({
-        _debug: true,
-        anthropicStatus: response.status,
-        anthropicError: responseText,
-      });
+      return res
+        .status(200)
+        .json({
+          _debug: true,
+          anthropicStatus: response.status,
+          anthropicError: responseText,
+        });
     }
 
     const data = JSON.parse(responseText);
