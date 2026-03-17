@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>EcoScan AI 🌿</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --green-dark: #1a6b3a; --green-mid: #2d9e5f; --green-light: #4ccc87;
+    --green-pale: #c6f0d8; --sky: #e8f8f0; --accent: #ffcc00;
+    --text: #1a2e1f; --muted: #5a7a65;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: linear-gradient(160deg, #e8f8f0 0%, #c6f0d8 40%, #a8e6c4 100%); min-height: 100vh; color: var(--text); }
+
+  header { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); padding: 1.2rem 1.5rem; display: flex; align-items: center; gap: 1rem; box-shadow: 0 4px 20px rgba(26,107,58,0.3); position: sticky; top: 0; z-index: 100; }
+  .logo { width: 52px; height: 52px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; flex-shrink: 0; animation: pulse 2.5s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07);box-shadow:0 5px 18px rgba(255,204,0,0.5)} }
+  .brand h1 { color: white; font-size: 1.5rem; font-weight: 900; }
+  .brand p  { color: var(--green-pale); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; }
+  .badge { margin-left: auto; background: rgba(255,204,0,0.2); border: 1px solid var(--accent); color: var(--accent); font-size: 0.7rem; font-weight: 700; padding: 0.3rem 0.7rem; border-radius: 20px; white-space: nowrap; }
+
+  .hero { text-align: center; padding: 2rem 1.5rem 1rem; }
+  .hero h2 { font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 900; color: var(--green-dark); line-height: 1.2; }
+  .hero h2 span { color: var(--green-mid); }
+  .hero p { color: var(--muted); margin-top: 0.5rem; font-size: 1rem; font-weight: 600; }
+
+  .scan-card { background: white; border-radius: 24px; padding: 1.8rem 1.5rem; margin: 1.2rem 1rem; box-shadow: 0 8px 32px rgba(26,107,58,0.12); border: 2px solid var(--green-pale); }
+  .scan-card label { display: block; font-weight: 800; font-size: 0.9rem; color: var(--green-dark); margin-bottom: 0.6rem; }
+  .input-row { display: flex; gap: 0.6rem; }
+  .scan-card input { flex: 1; border: 2px solid var(--green-pale); border-radius: 14px; padding: 0.85rem 1.1rem; font-size: 1rem; font-family: 'Nunito', sans-serif; font-weight: 600; color: var(--text); outline: none; transition: border 0.2s; background: var(--sky); }
+  .scan-card input:focus { border-color: var(--green-mid); background: white; }
+  .scan-card input::placeholder { color: #9ab8a5; font-weight: 500; }
+  .btn-scan { background: linear-gradient(135deg, var(--green-mid), var(--green-dark)); color: white; border: none; border-radius: 14px; padding: 0.85rem 1.4rem; font-size: 1rem; font-weight: 800; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; font-family: 'Nunito', sans-serif; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; }
+  .btn-scan:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,158,95,0.4); }
+  .btn-scan:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .examples { margin-top: 1rem; }
+  .examples p { font-size: 0.78rem; color: var(--muted); font-weight: 700; margin-bottom: 0.5rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .chip { background: var(--sky); border: 1.5px solid var(--green-pale); border-radius: 20px; padding: 0.3rem 0.75rem; font-size: 0.8rem; font-weight: 700; cursor: pointer; color: var(--green-dark); transition: all 0.15s; font-family: 'Nunito', sans-serif; }
+  .chip:hover { background: var(--green-pale); border-color: var(--green-mid); }
+
+  .result-area { margin: 0 1rem 1rem; display: none; }
+  .result-area.visible { display: block; }
+
+  .loading-card { background: white; border-radius: 24px; padding: 2rem; text-align: center; border: 2px solid var(--green-pale); box-shadow: 0 8px 32px rgba(26,107,58,0.1); }
+  .spinner { width: 48px; height: 48px; margin: 0 auto 1rem; border: 4px solid var(--green-pale); border-top-color: var(--green-mid); border-radius: 50%; animation: spin 0.9s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .result-card { background: white; border-radius: 24px; padding: 1.8rem 1.5rem; box-shadow: 0 8px 32px rgba(26,107,58,0.12); border: 2px solid var(--green-pale); animation: slideUp 0.4s ease-out; }
+  @keyframes slideUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  .result-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem; }
+  .result-emoji { width: 60px; height: 60px; border-radius: 16px; background: var(--sky); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; flex-shrink: 0; }
+  .result-title { font-size: 1.2rem; font-weight: 900; color: var(--green-dark); }
+  .result-subtitle { font-size: 0.85rem; color: var(--muted); font-weight: 600; margin-top: 0.1rem; }
+
+  .impact-meter { background: var(--sky); border-radius: 14px; padding: 1rem 1.2rem; margin-bottom: 1rem; }
+  .impact-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+  .impact-label span:first-child { font-size: 0.8rem; font-weight: 800; color: var(--green-dark); }
+  .impact-score { font-size: 1.1rem; font-weight: 900; }
+  .score-good { color: var(--green-mid); } .score-ok { color: #f5a623; } .score-bad { color: #e84040; }
+  .bar-track { background: var(--green-pale); border-radius: 10px; height: 10px; overflow: hidden; }
+  .bar-fill { height: 100%; border-radius: 10px; transition: width 1s ease-out; }
+
+  .section-block { border-left: 4px solid var(--green-light); padding: 0.8rem 1rem; margin-bottom: 0.9rem; background: var(--sky); border-radius: 0 12px 12px 0; }
+  .section-block h4 { font-size: 0.78rem; font-weight: 900; color: var(--green-dark); letter-spacing: 0.5px; margin-bottom: 0.4rem; }
+  .section-block p  { font-size: 0.92rem; font-weight: 600; color: var(--text); line-height: 1.55; }
+
+  .tip-block { background: linear-gradient(135deg, var(--green-dark), var(--green-mid)); border-radius: 16px; padding: 1rem 1.2rem; display: flex; align-items: flex-start; gap: 0.8rem; }
+  .tip-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .tip-block h4 { color: var(--accent); font-size: 0.78rem; font-weight: 900; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+  .tip-block p  { color: white; font-size: 0.9rem; font-weight: 600; line-height: 1.5; }
+
+  .facts-strip { margin: 0.5rem 1rem 1.5rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 0.7rem; }
+  .fact-card { background: white; border-radius: 18px; padding: 1rem 0.7rem; text-align: center; box-shadow: 0 4px 14px rgba(26,107,58,0.08); border: 1.5px solid var(--green-pale); }
+  .fact-card .icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .fact-card .num  { font-size: 1.2rem; font-weight: 900; color: var(--green-dark); }
+  .fact-card .desc { font-size: 0.68rem; font-weight: 700; color: var(--muted); margin-top: 0.2rem; line-height: 1.3; }
+
+  footer { text-align: center; padding: 1.5rem 1rem 2rem; color: var(--muted); font-size: 0.78rem; font-weight: 700; }
+  footer span { color: var(--green-mid); }
+  .error-card { background: #fff5f5; border: 2px solid #fecaca; border-radius: 16px; padding: 1.2rem; color: #b91c1c; font-weight: 700; text-align: center; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">🌿</div>
+  <div class="brand">
+    <h1>EcoScan AI</h1>
+    <p>POWERED BY ARTIFICIAL INTELLIGENCE</p>
+  </div>
+  <div class="badge">🏆 ICS TECH CHALLENGE</div>
+</header>
+
+<div class="hero">
+  <h2>What's the <span>eco-impact</span><br/>of things around you?</h2>
+  <p>Type anything — a plant, animal, object, habit — and find out!</p>
+</div>
+
+<div class="scan-card">
+  <label>🔍 TYPE SOMETHING TO SCAN</label>
+  <div class="input-row">
+    <input type="text" id="queryInput" placeholder="e.g. plastic bottle, mango tree, burning rubbish…" maxlength="100"/>
+    <button class="btn-scan" id="scanBtn" onclick="runScan()">⚡ Scan</button>
+  </div>
+  <div class="examples">
+    <p>💡 TRY THESE:</p>
+    <div class="chips" id="chips"></div>
+  </div>
+</div>
+
+<div class="result-area" id="resultArea"></div>
+
+<div class="facts-strip">
+  <div class="fact-card"><div class="icon">🌍</div><div class="num">30%</div><div class="desc">of Ghana's forests lost in 20 years</div></div>
+  <div class="fact-card"><div class="icon">♻️</div><div class="num">9%</div><div class="desc">of all plastic ever made gets recycled</div></div>
+  <div class="fact-card"><div class="icon">🌱</div><div class="num">1 tree</div><div class="desc">absorbs ~22 kg of CO₂ per year</div></div>
+</div>
+
+<footer>Made with 💚 for the <span>ICS Technology & Innovation Challenge 2026</span><br/>Invent • Inspire • Impact</footer>
+
+<script>
+  const examples = ["plastic bottle","mango tree","burning rubbish","solar panel","cow","sachet water","charcoal stove","bicycle","borehole water"];
+  const chipsEl = document.getElementById("chips");
+  examples.forEach(ex => {
+    const chip = document.createElement("button");
+    chip.className = "chip"; chip.textContent = ex;
+    chip.onclick = () => { document.getElementById("queryInput").value = ex; runScan(); };
+    chipsEl.appendChild(chip);
+  });
+  document.getElementById("queryInput").addEventListener("keypress", e => { if (e.key==="Enter") runScan(); });
+
+  async function runScan() {
+    const input = document.getElementById("queryInput").value.trim();
+    if (!input) return;
+    const resultArea = document.getElementById("resultArea");
+    const scanBtn   = document.getElementById("scanBtn");
+    resultArea.className = "result-area visible";
+    resultArea.innerHTML = `<div class="loading-card"><div class="spinner"></div><p>🌿 Analysing environmental impact…</p></div>`;
+    scanBtn.disabled = true;
+
+    try {
+      // ✅ Calls OUR backend at /api/scan — NOT Anthropic directly
+      const res = await fetch("/api/scan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: input })
+      });
+
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+      const parsed = await res.json();
+      if (parsed.error) throw new Error(parsed.error);
+
+      const barColor = parsed.scoreColor==="good" ? "#2d9e5f" : parsed.scoreColor==="ok" ? "#f5a623" : "#e84040";
+
+      resultArea.innerHTML = `
+        <div class="result-card">
+          <div class="result-header">
+            <div class="result-emoji">${parsed.emoji}</div>
+            <div>
+              <div class="result-title">${parsed.name}</div>
+              <div class="result-subtitle">Category: ${parsed.category}</div>
+            </div>
+          </div>
+          <div class="impact-meter">
+            <div class="impact-label">
+              <span>🌿 ECO SCORE</span>
+              <span class="impact-score score-${parsed.scoreColor}">${parsed.ecoScore}/10 — ${parsed.scoreLabel}</span>
+            </div>
+            <div class="bar-track"><div class="bar-fill" id="barFill" style="width:0%;background:${barColor}"></div></div>
+          </div>
+          <div class="section-block"><h4>📖 WHAT IS IT?</h4><p>${parsed.whatIsIt}</p></div>
+          <div class="section-block"><h4>🌍 ENVIRONMENTAL IMPACT</h4><p>${parsed.envImpact}</p></div>
+          <div class="section-block"><h4>🤯 FUN FACT</h4><p>${parsed.funFact}</p></div>
+          <div class="tip-block"><div class="tip-icon">💡</div><div><h4>GREEN TIP — WHAT YOU CAN DO TODAY</h4><p>${parsed.greenTip}</p></div></div>
+        </div>`;
+      setTimeout(() => { const b = document.getElementById("barFill"); if(b) b.style.width = (parsed.ecoScore/10*100)+"%" }, 100);
+
+    } catch(err) {
+      resultArea.innerHTML = `<div class="error-card">😕 ${err.message || "Something went wrong. Please try again."}</div>`;
+    } finally { scanBtn.disabled = false; }
+  }
+</script>
+</body>
+</html>
