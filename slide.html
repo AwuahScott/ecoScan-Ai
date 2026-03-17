@@ -1,0 +1,1222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EcoScan AI — ICS Tech Challenge Presentation</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Bebas+Neue&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --g1: #0d3d1f;
+        --g2: #1a6b3a;
+        --g3: #2d9e5f;
+        --g4: #4ccc87;
+        --pale: #c6f0d8;
+        --sky: #e8f8f0;
+        --accent: #ffcc00;
+        --white: #ffffff;
+        --text: #0d1f12;
+        --slide-w: 960px;
+        --slide-h: 540px;
+      }
+      body {
+        background: #111;
+        font-family: "Nunito", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 1rem;
+        gap: 2rem;
+      }
+
+      h1.deck-title {
+        color: var(--pale);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 4px;
+        text-align: center;
+      }
+
+      /* ===== SLIDE SHELL ===== */
+      .slide {
+        width: var(--slide-w);
+        height: var(--slide-h);
+        position: relative;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 20px 80px rgba(0, 0, 0, 0.6);
+        flex-shrink: 0;
+        display: flex;
+      }
+      .slide-num {
+        position: absolute;
+        bottom: 18px;
+        right: 22px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        opacity: 0.45;
+        color: white;
+        z-index: 10;
+      }
+
+      /* ============================================================
+     SLIDE 1 — TITLE
+  ============================================================ */
+      #s1 {
+        background: var(--g1);
+        flex-direction: column;
+      }
+      #s1 .bg-blob {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 80% 20%,
+            rgba(76, 204, 135, 0.18) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 10% 90%,
+            rgba(255, 204, 0, 0.1) 0%,
+            transparent 50%
+          );
+      }
+      #s1 .left-bar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--accent), var(--g4));
+      }
+      #s1 .content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        height: 100%;
+        align-items: center;
+        padding: 0 60px;
+        gap: 50px;
+      }
+      #s1 .text-side {
+        flex: 1;
+      }
+      #s1 .ics-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 204, 0, 0.12);
+        border: 1px solid rgba(255, 204, 0, 0.4);
+        border-radius: 20px;
+        padding: 5px 14px;
+        margin-bottom: 18px;
+      }
+      #s1 .ics-badge span {
+        color: var(--accent);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      #s1 h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 5.5rem;
+        line-height: 0.95;
+        color: white;
+        letter-spacing: 1px;
+      }
+      #s1 h1 em {
+        color: var(--g4);
+        font-style: normal;
+      }
+      #s1 .tagline {
+        color: var(--pale);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-top: 16px;
+        line-height: 1.6;
+      }
+      #s1 .presenter {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.78rem;
+        font-weight: 700;
+        margin-top: 22px;
+        letter-spacing: 0.5px;
+      }
+      #s1 .visual-side {
+        width: 220px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+      }
+      #s1 .big-emoji {
+        width: 160px;
+        height: 160px;
+        border-radius: 50%;
+        background: radial-gradient(circle, var(--g3), var(--g1));
+        border: 3px solid rgba(76, 204, 135, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 5rem;
+        box-shadow: 0 0 60px rgba(76, 204, 135, 0.3);
+      }
+      #s1 .pillars {
+        display: flex;
+        gap: 8px;
+      }
+      #s1 .pillar {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: var(--pale);
+        letter-spacing: 0.5px;
+        text-align: center;
+      }
+
+      /* ============================================================
+     SLIDE 2 — THE PROBLEM
+  ============================================================ */
+      #s2 {
+        background: white;
+      }
+      #s2 .top-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 8px;
+        background: linear-gradient(to right, var(--g2), var(--g4));
+      }
+      #s2 .inner {
+        padding: 46px 56px 36px;
+        width: 100%;
+      }
+      #s2 .slide-label {
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: var(--g3);
+        margin-bottom: 6px;
+      }
+      #s2 h2 {
+        font-size: 2.4rem;
+        font-weight: 900;
+        color: var(--g1);
+        line-height: 1.15;
+        margin-bottom: 28px;
+      }
+      #s2 h2 span {
+        color: var(--g3);
+      }
+      #s2 .prob-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .prob-card {
+        background: var(--sky);
+        border-radius: 14px;
+        padding: 18px 16px;
+        border-left: 5px solid;
+        position: relative;
+      }
+      .prob-card.red {
+        border-color: #e84040;
+      }
+      .prob-card.amber {
+        border-color: #f5a623;
+      }
+      .prob-card.teal {
+        border-color: var(--g3);
+      }
+      .prob-card .icon {
+        font-size: 1.8rem;
+        margin-bottom: 8px;
+      }
+      .prob-card h4 {
+        font-size: 0.82rem;
+        font-weight: 900;
+        color: var(--g1);
+        margin-bottom: 5px;
+      }
+      .prob-card p {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #4a6856;
+        line-height: 1.5;
+      }
+      .prob-card .stat {
+        font-size: 1.6rem;
+        font-weight: 900;
+        color: var(--g2);
+        margin-bottom: 4px;
+        display: block;
+      }
+      #s2 .bottom-q {
+        position: absolute;
+        bottom: 24px;
+        left: 56px;
+        right: 56px;
+        background: var(--g1);
+        border-radius: 12px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #s2 .bottom-q span {
+        color: var(--accent);
+        font-size: 1.2rem;
+      }
+      #s2 .bottom-q p {
+        color: white;
+        font-weight: 700;
+        font-size: 0.88rem;
+      }
+
+      /* ============================================================
+     SLIDE 3 — SOLUTION
+  ============================================================ */
+      #s3 {
+        background: var(--g1);
+      }
+      #s3 .bg-dots {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(
+          circle,
+          rgba(76, 204, 135, 0.15) 1px,
+          transparent 1px
+        );
+        background-size: 30px 30px;
+      }
+      #s3 .inner {
+        position: relative;
+        z-index: 2;
+        padding: 44px 56px;
+        width: 100%;
+      }
+      #s3 .slide-label {
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: var(--g4);
+        margin-bottom: 6px;
+      }
+      #s3 h2 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 8px;
+      }
+      #s3 h2 em {
+        color: var(--accent);
+        font-style: normal;
+      }
+      #s3 .sub {
+        color: var(--pale);
+        font-size: 0.88rem;
+        font-weight: 600;
+        margin-bottom: 26px;
+      }
+      #s3 .flow {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        margin-bottom: 26px;
+      }
+      .flow-step {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.13);
+        border-radius: 14px;
+        padding: 16px 12px;
+        text-align: center;
+      }
+      .flow-step .ico {
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+      .flow-step h4 {
+        color: var(--accent);
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+      }
+      .flow-step p {
+        color: var(--pale);
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-top: 3px;
+        line-height: 1.4;
+      }
+      .flow-arrow {
+        color: var(--g4);
+        font-size: 1.5rem;
+        padding: 0 6px;
+        flex-shrink: 0;
+      }
+      #s3 .ai-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 204, 0, 0.12);
+        border: 1px solid rgba(255, 204, 0, 0.4);
+        border-radius: 20px;
+        padding: 8px 18px;
+      }
+      #s3 .ai-pill span {
+        color: var(--accent);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+      }
+
+      /* ============================================================
+     SLIDE 4 — FEATURES
+  ============================================================ */
+      #s4 {
+        background: white;
+      }
+      #s4 .left-col {
+        width: 42%;
+        background: var(--g2);
+        padding: 44px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #s4 .left-col .slide-label {
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: var(--g4);
+        margin-bottom: 8px;
+      }
+      #s4 .left-col h2 {
+        font-size: 2.6rem;
+        font-weight: 900;
+        color: white;
+        line-height: 1.1;
+        margin-bottom: 12px;
+      }
+      #s4 .left-col h2 span {
+        color: var(--accent);
+      }
+      #s4 .left-col p {
+        color: var(--pale);
+        font-size: 0.85rem;
+        font-weight: 600;
+        line-height: 1.6;
+      }
+      #s4 .screen-mock {
+        margin-top: 22px;
+        background: var(--g1);
+        border-radius: 12px;
+        padding: 12px;
+        border: 2px solid rgba(76, 204, 135, 0.3);
+      }
+      #s4 .mock-bar {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 8px;
+      }
+      #s4 .mock-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+      }
+      #s4 .mock-input {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 6px;
+        height: 24px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        padding: 0 8px;
+        font-size: 0.62rem;
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 600;
+      }
+      #s4 .mock-result {
+        background: rgba(76, 204, 135, 0.15);
+        border-radius: 6px;
+        height: 50px;
+      }
+      #s4 .right-col {
+        flex: 1;
+        padding: 44px 36px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 14px;
+      }
+      .feat-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .feat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        flex-shrink: 0;
+      }
+      .feat-icon.a {
+        background: rgba(76, 204, 135, 0.12);
+      }
+      .feat-icon.b {
+        background: rgba(255, 204, 0, 0.12);
+      }
+      .feat-icon.c {
+        background: rgba(45, 158, 95, 0.12);
+      }
+      .feat-icon.d {
+        background: rgba(232, 64, 64, 0.12);
+      }
+      .feat-text h4 {
+        font-size: 0.85rem;
+        font-weight: 900;
+        color: var(--g1);
+        margin-bottom: 2px;
+      }
+      .feat-text p {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #5a7a65;
+        line-height: 1.4;
+      }
+
+      /* ============================================================
+     SLIDE 5 — HOW IT WORKS
+  ============================================================ */
+      #s5 {
+        background: var(--sky);
+      }
+      #s5 .inner {
+        padding: 44px 56px;
+        width: 100%;
+      }
+      #s5 .slide-label {
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: var(--g3);
+        margin-bottom: 6px;
+      }
+      #s5 h2 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: var(--g1);
+        margin-bottom: 28px;
+      }
+      #s5 h2 span {
+        color: var(--g3);
+      }
+      #s5 .steps {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+      .step-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        background: white;
+        border-radius: 14px;
+        padding: 14px 20px;
+        box-shadow: 0 3px 12px rgba(26, 107, 58, 0.07);
+      }
+      .step-num {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--g2);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .step-icon {
+        font-size: 1.6rem;
+      }
+      .step-info h4 {
+        font-size: 0.85rem;
+        font-weight: 900;
+        color: var(--g1);
+      }
+      .step-info p {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #5a7a65;
+        margin-top: 2px;
+        line-height: 1.4;
+      }
+      .step-tag {
+        margin-left: auto;
+        background: var(--g4);
+        color: var(--g1);
+        font-size: 0.65rem;
+        font-weight: 900;
+        padding: 4px 10px;
+        border-radius: 12px;
+        letter-spacing: 0.5px;
+        white-space: nowrap;
+      }
+
+      /* ============================================================
+     SLIDE 6 — IMPACT / SDGs
+  ============================================================ */
+      #s6 {
+        background: var(--g1);
+      }
+      #s6 .bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          ellipse at 70% 50%,
+          rgba(76, 204, 135, 0.15) 0%,
+          transparent 60%
+        );
+      }
+      #s6 .inner {
+        position: relative;
+        z-index: 2;
+        padding: 44px 56px;
+        width: 100%;
+      }
+      #s6 .slide-label {
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: var(--g4);
+        margin-bottom: 6px;
+      }
+      #s6 h2 {
+        font-size: 2.2rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 24px;
+      }
+      #s6 h2 span {
+        color: var(--accent);
+      }
+      #s6 .impact-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        margin-bottom: 22px;
+      }
+      .impact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 14px;
+        padding: 14px;
+      }
+      .impact-item .ico {
+        font-size: 1.6rem;
+      }
+      .impact-item h4 {
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.3px;
+      }
+      .impact-item p {
+        color: var(--pale);
+        font-size: 0.73rem;
+        font-weight: 600;
+        line-height: 1.45;
+        margin-top: 2px;
+      }
+      #s6 .sdgs {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      #s6 .sdgs p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.7rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+      .sdg-badge {
+        padding: 5px 12px;
+        border-radius: 8px;
+        font-size: 0.7rem;
+        font-weight: 900;
+        letter-spacing: 0.3px;
+      }
+      .sdg-badge.g {
+        background: rgba(76, 204, 135, 0.2);
+        color: var(--g4);
+        border: 1px solid rgba(76, 204, 135, 0.3);
+      }
+      .sdg-badge.b {
+        background: rgba(0, 150, 200, 0.2);
+        color: #5dcfef;
+        border: 1px solid rgba(0, 150, 200, 0.3);
+      }
+      .sdg-badge.y {
+        background: rgba(255, 204, 0, 0.15);
+        color: var(--accent);
+        border: 1px solid rgba(255, 204, 0, 0.3);
+      }
+
+      /* ============================================================
+     SLIDE 7 — CALL TO ACTION
+  ============================================================ */
+      #s7 {
+        background: var(--g2);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      #s7 .bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 20% 80%,
+            rgba(255, 204, 0, 0.12) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 80% 20%,
+            rgba(76, 204, 135, 0.25) 0%,
+            transparent 55%
+          );
+      }
+      #s7 .content {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+        padding: 0 60px;
+      }
+      #s7 .big-icon {
+        font-size: 4rem;
+        margin-bottom: 16px;
+      }
+      #s7 h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4.5rem;
+        color: white;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+      #s7 h2 span {
+        color: var(--accent);
+      }
+      #s7 p {
+        color: var(--pale);
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.6;
+        margin-bottom: 28px;
+      }
+      #s7 .triple {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin-bottom: 28px;
+      }
+      .triple-item {
+        text-align: center;
+      }
+      .triple-item .t-ico {
+        font-size: 1.5rem;
+        margin-bottom: 4px;
+      }
+      .triple-item .t-label {
+        color: var(--accent);
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+      .triple-item .t-sub {
+        color: var(--pale);
+        font-size: 0.7rem;
+        font-weight: 600;
+        margin-top: 2px;
+      }
+      #s7 .footer-logos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+        padding-top: 18px;
+      }
+      #s7 .footer-logos span {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+      }
+
+      /* ===== CONTROLS ===== */
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .ctrl-btn {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 8px;
+        font-family: "Nunito", sans-serif;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .ctrl-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+      .ctrl-btn:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+      .slide-indicator {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.8rem;
+        font-weight: 700;
+        min-width: 70px;
+        text-align: center;
+      }
+      .print-btn {
+        background: var(--g3);
+        border: none;
+        color: white;
+        padding: 8px 18px;
+        border-radius: 8px;
+        font-family: "Nunito", sans-serif;
+        font-weight: 700;
+        font-size: 0.8rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="deck-title">
+      🌿 ECOSCAN AI — ICS TECH INNOVATION CHALLENGE 2026
+    </h1>
+
+    <!-- SLIDE 1: TITLE -->
+    <div class="slide" id="s1">
+      <div class="bg-blob"></div>
+      <div class="left-bar"></div>
+      <div class="content">
+        <div class="text-side">
+          <div class="ics-badge">
+            <span>🏫 ICS TECH INNOVATION CHALLENGE 2026</span>
+          </div>
+          <h1>Eco<em>Scan</em><br />AI</h1>
+          <p class="tagline">
+            An AI-powered app that helps you discover<br />the environmental
+            impact of everyday things.
+          </p>
+          <p class="presenter">
+            Presented by: Nana Afia Frimpomaa Agyeman · Class 6 Student ·
+            Thursday, 19th March 2026<br />International Community School, Ghana
+          </p>
+        </div>
+        <div class="visual-side">
+          <div class="big-emoji">🌿</div>
+          <div class="pillars">
+            <div class="pillar">INVENT</div>
+            <div class="pillar">INSPIRE</div>
+            <div class="pillar">IMPACT</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-num">1 / 7</div>
+    </div>
+
+    <!-- SLIDE 2: THE PROBLEM -->
+    <div class="slide" id="s2">
+      <div class="top-bar"></div>
+      <div class="inner">
+        <div class="slide-label">THE PROBLEM</div>
+        <h2>
+          Our environment is in <span>danger</span> —<br />but many people don't
+          know how.
+        </h2>
+        <div class="prob-grid">
+          <div class="prob-card red">
+            <div class="icon">🏭</div>
+            <span class="stat">30%</span>
+            <h4>Deforestation in Ghana</h4>
+            <p>
+              Ghana has lost nearly a third of its forests in just 20 years due
+              to farming and burning.
+            </p>
+          </div>
+          <div class="prob-card amber">
+            <div class="icon">🗑️</div>
+            <span class="stat">9%</span>
+            <h4>Plastic Recycled Worldwide</h4>
+            <p>
+              Only 9% of all plastic ever produced has been recycled. The rest
+              ends up in land or sea.
+            </p>
+          </div>
+          <div class="prob-card teal">
+            <div class="icon">❓</div>
+            <span class="stat">~0</span>
+            <h4>Eco-Education Tools</h4>
+            <p>
+              Almost no simple tools exist to help children in Ghana learn about
+              environmental impact.
+            </p>
+          </div>
+        </div>
+        <div class="bottom-q">
+          <span>💡</span>
+          <p>
+            What if every child could instantly understand the eco-impact of
+            anything around them?
+          </p>
+        </div>
+      </div>
+      <div class="slide-num">2 / 7</div>
+    </div>
+
+    <!-- SLIDE 3: SOLUTION -->
+    <div class="slide" id="s3">
+      <div class="bg-dots"></div>
+      <div class="inner">
+        <div class="slide-label">THE SOLUTION</div>
+        <h2>Introducing <em>EcoScan AI</em></h2>
+        <p class="sub">
+          Type anything. Get instant eco-intelligence. Learn to protect your
+          world.
+        </p>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="ico">⌨️</div>
+            <h4>YOU TYPE</h4>
+            <p>Any object, plant, animal, or habit</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="ico">🤖</div>
+            <h4>AI THINKS</h4>
+            <p>Claude AI analyses environmental impact</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="ico">🌍</div>
+            <h4>YOU LEARN</h4>
+            <p>Eco score, impact info &amp; green tip</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="ico">💪</div>
+            <h4>YOU ACT</h4>
+            <p>Take action to protect Ghana's environment</p>
+          </div>
+        </div>
+        <div class="ai-pill">
+          <span
+            >🔬 POWERED BY CLAUDE AI (ANTHROPIC) · WORKS IN ANY WEB BROWSER · NO
+            APP DOWNLOAD NEEDED</span
+          >
+        </div>
+      </div>
+      <div class="slide-num">3 / 7</div>
+    </div>
+
+    <!-- SLIDE 4: FEATURES -->
+    <div class="slide" id="s4">
+      <div class="left-col">
+        <div class="slide-label">KEY FEATURES</div>
+        <h2>What can<br /><span>EcoScan</span><br />do?</h2>
+        <p>
+          A simple, powerful app designed for students in Ghana — focused on our
+          local environment.
+        </p>
+        <div class="screen-mock">
+          <div class="mock-bar">
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+            <div class="mock-dot"></div>
+          </div>
+          <div class="mock-input">🔍 Type: "plastic bottle"…</div>
+          <div class="mock-result"></div>
+        </div>
+      </div>
+      <div class="right-col">
+        <div class="feat-row">
+          <div class="feat-icon a">🌿</div>
+          <div class="feat-text">
+            <h4>Eco Score (1–10)</h4>
+            <p>
+              Visual score bar showing how good or bad something is for the
+              environment — at a glance.
+            </p>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-icon b">🌍</div>
+          <div class="feat-text">
+            <h4>Local Impact Focus</h4>
+            <p>
+              Answers are tailored to Ghana and West Africa, making them
+              relevant and relatable.
+            </p>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-icon c">🤯</div>
+          <div class="feat-text">
+            <h4>Fun Eco Facts</h4>
+            <p>
+              Surprising facts about every topic to keep learning exciting and
+              memorable.
+            </p>
+          </div>
+        </div>
+        <div class="feat-row">
+          <div class="feat-icon d">💡</div>
+          <div class="feat-text">
+            <h4>Green Tips You Can Do Today</h4>
+            <p>
+              Every scan ends with one specific, kid-friendly action to help the
+              environment right now.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-num">4 / 7</div>
+    </div>
+
+    <!-- SLIDE 5: HOW IT WORKS -->
+    <div class="slide" id="s5">
+      <div class="inner">
+        <div class="slide-label">HOW IT WORKS</div>
+        <h2>The Technology <span>Behind EcoScan</span></h2>
+        <div class="steps">
+          <div class="step-row">
+            <div class="step-num">1</div>
+            <div class="step-icon">🌐</div>
+            <div class="step-info">
+              <h4>HTML + CSS + JavaScript Frontend</h4>
+              <p>
+                The app is built as a single web page — no installation needed.
+                Runs on any phone, tablet, or computer.
+              </p>
+            </div>
+            <div class="step-tag">WEB APP</div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">2</div>
+            <div class="step-icon">📡</div>
+            <div class="step-info">
+              <h4>API Call to Claude AI (by Anthropic)</h4>
+              <p>
+                The app sends your question securely to Claude AI — one of the
+                world's most powerful AI assistants.
+              </p>
+            </div>
+            <div class="step-tag">ARTIFICIAL INTELLIGENCE</div>
+          </div>
+          <div class="step-row">
+            <div class="step-num">3</div>
+            <div class="step-icon">📊</div>
+            <div class="step-info">
+              <h4>Structured JSON Response + Live Display</h4>
+              <p>
+                The AI responds in structured data format. JavaScript parses it
+                and displays a beautiful, informative result card.
+              </p>
+            </div>
+            <div class="step-tag">REAL-TIME DATA</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-num">5 / 7</div>
+    </div>
+
+    <!-- SLIDE 6: IMPACT -->
+    <div class="slide" id="s6">
+      <div class="bg"></div>
+      <div class="inner">
+        <div class="slide-label">REAL-WORLD IMPACT</div>
+        <h2>Why This <span>Matters</span></h2>
+        <div class="impact-grid">
+          <div class="impact-item">
+            <div class="ico">🎓</div>
+            <div>
+              <h4>ENVIRONMENTAL EDUCATION</h4>
+              <p>
+                Makes eco-learning accessible to every student in Ghana — even
+                without expensive textbooks or internet.
+              </p>
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="ico">🌱</div>
+            <div>
+              <h4>BEHAVIOUR CHANGE</h4>
+              <p>
+                When children understand impact, they make better choices — and
+                teach their families too.
+              </p>
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="ico">🏫</div>
+            <div>
+              <h4>CLASSROOM TOOL</h4>
+              <p>
+                Teachers can use EcoScan in science, geography, and
+                environmental studies lessons instantly.
+              </p>
+            </div>
+          </div>
+          <div class="impact-item">
+            <div class="ico">🚀</div>
+            <div>
+              <h4>SCALABLE ACROSS AFRICA</h4>
+              <p>
+                The app can be adapted for any African country's local
+                environment, plants, and habits.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="sdgs">
+          <p>UN SDGs ADDRESSED:</p>
+          <div class="sdg-badge g">SDG 4 — Quality Education</div>
+          <div class="sdg-badge b">SDG 13 — Climate Action</div>
+          <div class="sdg-badge y">SDG 15 — Life on Land</div>
+        </div>
+      </div>
+      <div class="slide-num">6 / 7</div>
+    </div>
+
+    <!-- SLIDE 7: CALL TO ACTION -->
+    <div class="slide" id="s7">
+      <div class="bg"></div>
+      <div class="content">
+        <div class="big-icon">🌍</div>
+        <h2>Let's <span>Protect</span><br />Our Planet</h2>
+        <p>
+          EcoScan AI proves that technology can be a force for good.<br />One
+          scan at a time, we can build an eco-conscious generation.
+        </p>
+        <div class="triple">
+          <div class="triple-item">
+            <div class="t-ico">💡</div>
+            <div class="t-label">INVENT</div>
+            <div class="t-sub">AI + Web Tech</div>
+          </div>
+          <div class="triple-item">
+            <div class="t-ico">✨</div>
+            <div class="t-label">INSPIRE</div>
+            <div class="t-sub">Young eco-learners</div>
+          </div>
+          <div class="triple-item">
+            <div class="t-ico">🌿</div>
+            <div class="t-label">IMPACT</div>
+            <div class="t-sub">Ghana's environment</div>
+          </div>
+        </div>
+        <div class="footer-logos">
+          <span>🏫 INTERNATIONAL COMMUNITY SCHOOL, GHANA</span>
+          <span>·</span>
+          <span>🌐 ICS TECH &amp; INNOVATION CHALLENGE 2026</span>
+          <span>·</span>
+          <span>📅 19TH MARCH 2026</span>
+        </div>
+      </div>
+      <div class="slide-num">7 / 7</div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <button class="ctrl-btn" id="prevBtn" onclick="navigate(-1)" disabled>
+        ← Prev
+      </button>
+      <span class="slide-indicator" id="slideIndicator">Slide 1 / 7</span>
+      <button class="ctrl-btn" id="nextBtn" onclick="navigate(1)">
+        Next →
+      </button>
+      <button class="print-btn" onclick="window.print()">🖨️ Print</button>
+    </div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      let cur = 0;
+      slides.forEach((s, i) => (s.style.display = i === 0 ? "flex" : "none"));
+
+      function navigate(dir) {
+        slides[cur].style.display = "none";
+        cur = Math.max(0, Math.min(slides.length - 1, cur + dir));
+        slides[cur].style.display = "flex";
+        document.getElementById("prevBtn").disabled = cur === 0;
+        document.getElementById("nextBtn").disabled = cur === slides.length - 1;
+        document.getElementById("slideIndicator").textContent =
+          `Slide ${cur + 1} / ${slides.length}`;
+      }
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") navigate(1);
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") navigate(-1);
+      });
+    </script>
+
+    <style>
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+          gap: 0;
+        }
+        h1.deck-title,
+        .controls {
+          display: none !important;
+        }
+        .slide {
+          display: flex !important;
+          break-after: page;
+          box-shadow: none;
+          border-radius: 0;
+          width: 100%;
+          height: auto;
+          min-height: 540px;
+        }
+      }
+    </style>
+  </body>
+</html>
